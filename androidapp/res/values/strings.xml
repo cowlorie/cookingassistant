@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello">Hello World, CookingAssistant!</string>
+    <string name="app_name">Cooking Assistant</string>
+    <string name="no_recipes">No Recipes Yet</string>
+    <string name="search_label">Search Label</string>
+    <string name="search_hint">Search Hint</string>
+</resources>
