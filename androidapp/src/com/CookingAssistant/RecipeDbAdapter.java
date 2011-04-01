@@ -53,6 +53,18 @@ public class RecipeDbAdapter {
                     + DATABASE_TABLE
                     + " (title, ingredients, instructions)"
                     + " VALUES ('Second Recipe', 'water noodles', 'boil water add noodles/neat');");
+            db.execSQL("INSERT INTO "
+                    + DATABASE_TABLE
+                    + " (title, ingredients, instructions)"
+                    + " VALUES ('Third Recipe', 'two licorice', 'eat and chew a lot');");
+            db.execSQL("INSERT INTO "
+                    + DATABASE_TABLE
+                    + " (title, ingredients, instructions)"
+                    + " VALUES ('Fourth Recipe', 'steak', 'buy steak');");
+            db.execSQL("INSERT INTO "
+                    + DATABASE_TABLE
+                    + " (title, ingredients, instructions)"
+                    + " VALUES ('Fifth Recipe', 'skittles', 'taste the rainbow');");
         }
 
         @Override
