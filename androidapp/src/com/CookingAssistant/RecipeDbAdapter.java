@@ -32,7 +32,7 @@ public class RecipeDbAdapter {
 
     private static final String DATABASE_NAME = "data";
     public static final String DATABASE_TABLE = "recipes";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private final Context mCtx;
 
@@ -48,7 +48,7 @@ public class RecipeDbAdapter {
             db.execSQL("INSERT INTO "
                     + DATABASE_TABLE
                     + " (title, ingredients, instructions)"
-                    + " VALUES ('First Recipe', '1 sugar 2 salt', 'mix sugar with salt');");
+                    + " VALUES ('First Recipe', '1 sugar\n2 salt\nwater', 'mix sugar with salt\nadd water');");
             db.execSQL("INSERT INTO "
                     + DATABASE_TABLE
                     + " (title, ingredients, instructions)"
