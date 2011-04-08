@@ -1,0 +1,11 @@
+To run our application:
+
+The Google's JSON .jar file should already be installed. 
+
+If you cannot execute the project from where it currently is, 
+try downloading the gson project with the followin steps:
+
+1) Need the JSON library to run our application. 
+	Can be downloaded at http://code.google.com/p/google-gson/downloads/detail?name=google-gson-1.6-release.zip .
+2) Update the CookingAssistant/androidapp/.classpath to direct 
+	the <classpathentry kind="lib" path> to where you downloaded the JSON jar.
