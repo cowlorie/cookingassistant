@@ -3,9 +3,31 @@ To run our application:
 The Google's JSON .jar file should already be installed. 
 
 If you cannot execute the project from where it currently is, 
-try downloading the gson project with the followin steps:
+try downloading the gson project with the following steps:
 
-1) Need the JSON library to run our application. 
-	Can be downloaded at http://code.google.com/p/google-gson/downloads/detail?name=google-gson-1.6-release.zip .
+1) Can be downloaded at http://code.google.com/p/google-gson/downloads/detail?name=google-gson-1.6-release.zip .
 2) Update the CookingAssistant/androidapp/.classpath to direct 
-	the <classpathentry kind="lib" path> to where you downloaded the JSON jar.
+    the <classpathentry kind="lib" path> to where you downloaded the JSON jar.
+
+To add favorites:
+1) Navigate to the recipe that you want to add.
+2) Click the menu button and "Add to Favorites".
+3) You can later view your favorite recipes on the main menu and clicking the Favorites tab.
+4) You can clear your favorites by clicking the menu button in the Favorites screen and clearing it there.
+
+To add to the shopping list:
+1) Navigate to the recipe that you want to add.
+2) Click the menu button and "Add to Shopping List".
+3) You can later view your shopping list on the main menu and clicking the Shopping Lists tab.
+4) You can clear your shopping list by clicking the menu button in the Shopping List screen and clearing it there.
+
+To search:
+1) Click on the search tab and search.
+
+To synchronize with the web server.
+1) Click on the synchronize button. It will take a couple of seconds, but you will get a notification.
+2) Click anywhere on the screen to exit.
+
+
+NOTE:
+Account Info and Settings are currently not implemented.
