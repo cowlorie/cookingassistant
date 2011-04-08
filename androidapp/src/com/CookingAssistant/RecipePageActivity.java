@@ -2,9 +2,14 @@ package com.CookingAssistant;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 public class RecipePageActivity extends Activity {
+	public static final int SHOPPING_LIST_ID = Menu.FIRST;
+	RecipeDbAdapter mDbHelper;
+	Recipe recipe;
 	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -13,10 +18,9 @@ public class RecipePageActivity extends Activity {
 		Bundle extras = getIntent().getExtras();
 		long recipeId = extras.getLong(RecipeDbAdapter.KEY_ROWID);
 		
-		RecipeDbAdapter mDbHelper = new RecipeDbAdapter(this);
+		mDbHelper = new RecipeDbAdapter(this);
 	    mDbHelper.open();
-	    Recipe recipe = mDbHelper.fetchRecipe(recipeId);
-	    mDbHelper.close();
+	    recipe = mDbHelper.fetchRecipe(recipeId);
 	    
 	    String title = recipe.title;
 	    String ingredients = "";
@@ -34,4 +38,21 @@ public class RecipePageActivity extends Activity {
         t2.setText(instructions);
 	}
 	
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        boolean result = super.onCreateOptionsMenu(menu);
+        menu.add(0, SHOPPING_LIST_ID, 0, R.string.menu_shopping_list_add);
+        return result;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {	    
+    	switch (item.getItemId()) {
+    	case SHOPPING_LIST_ID:
+    		mDbHelper.addRecipeToShoppingList(recipe);
+    		return true;
+    	}
+    	
+        return super.onOptionsItemSelected(item);
+    }
 }
