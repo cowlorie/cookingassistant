@@ -45,13 +45,19 @@ public class RecipeDbAdapter {
     			+ "recipe_id integer not null, "
             	+ "step text not null, "
             	+ "foreign key (recipe_id) references recipe(_id)); ";
+    // TODO: Multiple shopping lists?
+    private static final String DATABASE_CREATE_SHOPPING_LIST_TABLE = 
+    		"create table shopping_list ("
+    			+ "_id integer primary key autoincrement, "
+    			+ "ingredient text not null);";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_RECIPE_TABLE = "recipe";
     private static final String DATABASE_INGREDIENT_TABLE = "ingredient";
     private static final String DATABASE_STEP_TABLE = "step";
+    private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
     
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private final Context mCtx;
 
@@ -66,6 +72,7 @@ public class RecipeDbAdapter {
             db.execSQL(DATABASE_CREATE_RECIPE_TABLE);
             db.execSQL(DATABASE_CREATE_INGREDIENT_TABLE);
             db.execSQL(DATABASE_CREATE_STEP_TABLE);
+            db.execSQL(DATABASE_CREATE_SHOPPING_LIST_TABLE);
         }
 
         @Override
@@ -74,6 +81,11 @@ public class RecipeDbAdapter {
                     + newVersion + ", which will destroy all old data");
             if (oldVersion < 6)
             	db.execSQL("DROP TABLE IF EXISTS recipes");
+            if (oldVersion < 7) {
+                db.execSQL("DROP TABLE IF EXISTS recipe");
+                db.execSQL("DROP TABLE IF EXISTS ingredient");
+                db.execSQL("DROP TABLE IF EXISTS step");
+            }
             onCreate(db);
         }
     }
@@ -290,5 +302,33 @@ public class RecipeDbAdapter {
         // FIXME: Need to also update ingredients and steps
 
         return result;
+    }
+    
+    /**
+     * Add the ingredients from a given recipe to the global shopping list
+     * @param recipe
+     */
+    public void addRecipeToShoppingList(Recipe recipe) {
+		ContentValues item = new ContentValues();
+    	for (String ingredient : recipe.ingredients) {
+    		item.put(KEY_INGREDIENT, ingredient);
+    		mDb.insert(DATABASE_SHOPPING_LIST_TABLE, null, item);
+    		item.clear();
+    	}
+    }
+    
+    /**
+     * Return a Cursor over the list of shopping list items
+     * @return Cursor over all shopping list items
+     */
+    public Cursor fetchShoppingList() {
+        return mDb.query(DATABASE_SHOPPING_LIST_TABLE, new String[] {KEY_ROWID, KEY_INGREDIENT}, null, null, null, null, null);
+    }
+    
+    /**
+     * Clear the shopping list table of all entries
+     */
+    public void clearShoppingList() {
+    	mDb.delete(DATABASE_SHOPPING_LIST_TABLE, "1 == 1", null);
     }
 }
