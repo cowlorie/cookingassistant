@@ -9,6 +9,8 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
+import android.location.Address;
+import android.os.Parcelable.Creator;
 import android.util.Log;
 
 
@@ -98,6 +100,39 @@ public class RecipeDbAdapter {
     public RecipeDbAdapter open() throws SQLException {
         mDbHelper = new DatabaseHelper(mCtx);
         mDb = mDbHelper.getWritableDatabase();
+        
+        // Populate DB with temporary test data
+        Cursor cur = fetchAllRecipes();
+        if (cur.getCount() == 0) {
+        	Recipe r = new Recipe();
+        	
+        	r.title = "First recipe";
+        	r.ingredients = new String[] {"1 sugar", "2 salt", "water"};
+        	r.steps = new String[] {"mix sugar with salt", "add water"};
+        	createRecipe(r);
+        	
+        	r.title = "Second recipe";
+        	r.ingredients = new String[] {"water", "noodles"};
+        	r.steps = new String[] {"boil water", "add noodles", "eat"};
+        	createRecipe(r);
+      
+        	r.title = "Third recipe";
+        	r.ingredients = new String[] {"two licorice"};
+        	r.steps = new String[] {"eat and chew a lot"};
+        	createRecipe(r);
+        	
+        	r.title = "Fourth recipe";
+        	r.ingredients = new String[] {"steak"};
+        	r.steps = new String[] {"buy steak"};
+        	createRecipe(r);
+        	
+        	r.title = "Fifth recipe";
+        	r.ingredients = new String[] {"skittles"};
+        	r.steps = new String[] {"taste the rainbow"};
+        	createRecipe(r);
+        }
+        cur.close();
+        
         return this;
     }
     
