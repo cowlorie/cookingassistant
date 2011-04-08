@@ -39,9 +39,9 @@ public class RecipeDbAdapter {
     			+ "_id integer primary key autoincrement, "
     			+ "name text not null, "
     			+ "favorite integer, "
-    			+ "cook_time integer, "
+    			+ "cook_time text, "
     			+ "desc text, "
-    			+ "serv_size integer, "
+    			+ "serv_size text, "
     			+ "photo_urls text); ";
     private static final String DATABASE_CREATE_INGREDIENT_TABLE =
     		"create table ingredient ("
@@ -67,7 +67,7 @@ public class RecipeDbAdapter {
     private static final String DATABASE_STEP_TABLE = "step";
     private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
     
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 12;
 
     private final Context mCtx;
 
@@ -89,12 +89,11 @@ public class RecipeDbAdapter {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
-            if (oldVersion < 6)
-            	db.execSQL("DROP TABLE IF EXISTS recipes");
-            if (oldVersion < 8) {
+            if (oldVersion < newVersion) {
                 db.execSQL("DROP TABLE IF EXISTS recipe");
                 db.execSQL("DROP TABLE IF EXISTS ingredient");
                 db.execSQL("DROP TABLE IF EXISTS step");
+                db.execSQL("DROP TABLE IF EXISTS shopping_list");
             }
             onCreate(db);
         }
@@ -244,8 +243,8 @@ public class RecipeDbAdapter {
             recipe.id = mCursor.getLong(mCursor.getColumnIndex(KEY_ROWID));
             recipe.name = mCursor.getString(mCursor.getColumnIndex(KEY_NAME));
             recipe.favorite = mCursor.getInt(mCursor.getColumnIndex(KEY_FAVORITE)) != 0;
-            recipe.cook_time = mCursor.getInt(mCursor.getColumnIndex(KEY_COOK_TIME));
-            recipe.serv_size = mCursor.getInt(mCursor.getColumnIndex(KEY_SERV_SIZE));
+            recipe.cook_time = mCursor.getString(mCursor.getColumnIndex(KEY_COOK_TIME));
+            recipe.serv_size = mCursor.getString(mCursor.getColumnIndex(KEY_SERV_SIZE));
             recipe.photo_urls = mCursor.getString(mCursor.getColumnIndex(KEY_PHOTO_URLS));
             recipe.desc = mCursor.getString(mCursor.getColumnIndex(KEY_DESC));
         }
