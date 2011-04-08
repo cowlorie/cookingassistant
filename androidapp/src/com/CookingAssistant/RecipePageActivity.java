@@ -7,7 +7,9 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 public class RecipePageActivity extends Activity {
-	public static final int SHOPPING_LIST_ID = Menu.FIRST;
+	public static final int SHOPPING_LIST_ID = 1;
+	public static final int FAVORITES_ID = 2;
+	
 	RecipeDbAdapter mDbHelper;
 	Recipe recipe;
 	
@@ -42,6 +44,7 @@ public class RecipePageActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         boolean result = super.onCreateOptionsMenu(menu);
         menu.add(0, SHOPPING_LIST_ID, 0, R.string.menu_shopping_list_add);
+        menu.add(0, FAVORITES_ID, 0, R.string.menu_fav_add);
         return result;
     }
 
@@ -50,6 +53,9 @@ public class RecipePageActivity extends Activity {
     	switch (item.getItemId()) {
     	case SHOPPING_LIST_ID:
     		mDbHelper.addRecipeToShoppingList(recipe);
+    		return true;
+    	case FAVORITES_ID:
+    		mDbHelper.addRecipeToFavorites(recipe);
     		return true;
     	}
     	
