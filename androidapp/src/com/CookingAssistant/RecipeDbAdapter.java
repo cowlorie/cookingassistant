@@ -62,7 +62,7 @@ public class RecipeDbAdapter {
 	private static final String DATABASE_STEP_TABLE = "step";
 	private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
 
-	private static final int DATABASE_VERSION = 13;
+	private static final int DATABASE_VERSION = 14;
 
 	private final Context mCtx;
 
@@ -382,6 +382,8 @@ public class RecipeDbAdapter {
 	}
 	
 	public void clearFavs() {
-		
+		ContentValues args = new ContentValues();
+		args.put(KEY_FAVORITE, false);
+		mDb.update(DATABASE_RECIPE_TABLE, args,KEY_FAVORITE + "=" + "1", null);
 	}
 }

@@ -9,6 +9,13 @@ try downloading the gson project with the following steps:
 2) Update the CookingAssistant/androidapp/.classpath to direct 
     the <classpathentry kind="lib" path> to where you downloaded the JSON jar.
 
+	
+To synchronize with the web server.
+1) Click on the synchronize button on the home page. It will take a couple of seconds, but you will get a notification.
+2) Click anywhere on the screen to dismiss the notification.
+*It is better to synchronize recipes before trying out other features so that there is more data availiable.
+*Right now the parser is set to synchronize only the first 30 recipes to save time.
+
 To add favorites:
 1) Navigate to the recipe that you want to add.
 2) Click the menu button and "Add to Favorites".
@@ -22,11 +29,9 @@ To add to the shopping list:
 4) You can clear your shopping list by clicking the menu button in the Shopping List screen and clearing it there.
 
 To search:
-1) Click on the search tab and search.
-
-To synchronize with the web server.
-1) Click on the synchronize button. It will take a couple of seconds, but you will get a notification.
-2) Click anywhere on the screen to exit.
+1) Click on the search tab.
+2) Type in the desired search string.
+3) click the search button.
 
 
 NOTE:
