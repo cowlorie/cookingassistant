@@ -1,7 +1,5 @@
 package com.CookingAssistant;
 
-import java.util.ArrayList;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -224,7 +222,6 @@ public class RecipeDbAdapter {
         mCursor.close();
         
         // Ingredients
-        ArrayList<String> ingredients = new ArrayList<String> ();
         mCursor =
         	mDb.query(false, DATABASE_INGREDIENT_TABLE,
         			  new String[] {KEY_INGREDIENT},
@@ -232,16 +229,16 @@ public class RecipeDbAdapter {
         			  null, null, null, null);
         if (mCursor != null) {
         	mCursor.moveToFirst();
+        	recipe.ingredients = new String[mCursor.getCount()];
+        	int i = 0;
             while (mCursor.isAfterLast() == false) {
-                ingredients.add(mCursor.getString(mCursor.getColumnIndex(KEY_INGREDIENT)));
+                recipe.ingredients[i++] = mCursor.getString(mCursor.getColumnIndex(KEY_INGREDIENT));
                 mCursor.moveToNext();
             }
         }
-        recipe.ingredients = (String[]) ingredients.toArray();
         mCursor.close();
         
         // Steps
-        ArrayList<String> steps = new ArrayList<String> ();
         mCursor =
         	mDb.query(false, DATABASE_STEP_TABLE,
         			  new String[] {KEY_STEP},
@@ -249,12 +246,13 @@ public class RecipeDbAdapter {
         			  null, null, null, null);
         if (mCursor != null) {
         	mCursor.moveToFirst();
+        	recipe.steps = new String[mCursor.getCount()];
+        	int s = 0;
             while (mCursor.isAfterLast() == false) {
-                steps.add(mCursor.getString(mCursor.getColumnIndex(KEY_STEP)));
+                recipe.steps[s++] = mCursor.getString(mCursor.getColumnIndex(KEY_STEP));
                 mCursor.moveToNext();
             }
         }
-        recipe.steps = (String[]) steps.toArray();
         mCursor.close();
         
         return recipe;
