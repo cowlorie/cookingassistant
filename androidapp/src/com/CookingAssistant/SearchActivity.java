@@ -48,10 +48,6 @@ public class SearchActivity extends ListActivity {
         i.putExtra(RecipeDbAdapter.KEY_ROWID, id);
         i.putExtra(RecipeDbAdapter.KEY_TITLE, c.getString(
                 c.getColumnIndexOrThrow(RecipeDbAdapter.KEY_TITLE)));
-        i.putExtra(RecipeDbAdapter.KEY_INGREDIENTS, c.getString(
-                c.getColumnIndexOrThrow(RecipeDbAdapter.KEY_INGREDIENTS)));
-        i.putExtra(RecipeDbAdapter.KEY_INSTRUCTIONS, c.getString(
-                c.getColumnIndexOrThrow(RecipeDbAdapter.KEY_INSTRUCTIONS)));
         startActivity(i);
     }
 
