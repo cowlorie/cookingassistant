@@ -22,7 +22,7 @@ public class RecipePageActivity extends Activity {
 	    mDbHelper.open();
 	    recipe = mDbHelper.fetchRecipe(recipeId);
 	    
-	    String title = recipe.title;
+	    String title = recipe.name;
 	    String ingredients = "";
 	    for (String ingredient : recipe.ingredients)
 	    	ingredients += ingredient + "\n";

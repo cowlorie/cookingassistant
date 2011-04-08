@@ -2,7 +2,7 @@ package com.CookingAssistant;
 
 public class Recipe {
 	Long id;
-	String title;
+	String name;
 	boolean favorite;
 	String cook_time;
 	String[] ingredients;

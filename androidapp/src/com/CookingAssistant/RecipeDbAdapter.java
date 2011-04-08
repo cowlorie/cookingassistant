@@ -14,13 +14,19 @@ import android.util.Log;
 
 public class RecipeDbAdapter {
 
-	public static final String KEY_TITLE = "title";
+    public static final String KEY_ROWID = "_id";
+
+    public static final String KEY_NAME = "name";
 	public static final String KEY_FAVORITE = "favorite";
+	public static final String KEY_COOK_TIME = "cook_time";
+	public static final String KEY_SERV_SIZE = "serv_size";
+	public static final String KEY_PHOTO_URLS = "photo_urls";
+	public static final String KEY_DESC = "desc";
+    
+    public static final String KEY_RECIPEID = "recipe_id";
     public static final String KEY_INGREDIENT = "ingredient";
     public static final String KEY_STEP = "step";
-    public static final String KEY_ROWID = "_id";
-    public static final String KEY_RECIPEID = "recipe_id";
-
+    
     private static final String TAG = "RecipeDbAdapter";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
@@ -31,8 +37,12 @@ public class RecipeDbAdapter {
     private static final String DATABASE_CREATE_RECIPE_TABLE =
             "create table recipe ("
     			+ "_id integer primary key autoincrement, "
-    			+ "title text not null, "
-    			+ "favorite integer); ";
+    			+ "name text not null, "
+    			+ "favorite integer, "
+    			+ "cook_time text, "
+    			+ "desc text, "
+    			+ "serve_size text, "
+    			+ "photo_urls text); ";
     private static final String DATABASE_CREATE_INGREDIENT_TABLE =
     		"create table ingredient ("
     			+ "_id integer primary key autoincrement, "
@@ -57,7 +67,7 @@ public class RecipeDbAdapter {
     private static final String DATABASE_STEP_TABLE = "step";
     private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
     
-    private static final int DATABASE_VERSION = 7;
+    private static final int DATABASE_VERSION = 8;
 
     private final Context mCtx;
 
@@ -81,7 +91,7 @@ public class RecipeDbAdapter {
                     + newVersion + ", which will destroy all old data");
             if (oldVersion < 6)
             	db.execSQL("DROP TABLE IF EXISTS recipes");
-            if (oldVersion < 7) {
+            if (oldVersion < 8) {
                 db.execSQL("DROP TABLE IF EXISTS recipe");
                 db.execSQL("DROP TABLE IF EXISTS ingredient");
                 db.execSQL("DROP TABLE IF EXISTS step");
@@ -118,27 +128,27 @@ public class RecipeDbAdapter {
         if (cur.getCount() == 0) {
         	Recipe r = new Recipe();
         	
-        	r.title = "First recipe";
+        	r.name = "First recipe";
         	r.ingredients = new String[] {"1 sugar", "2 salt", "water"};
         	r.steps = new String[] {"mix sugar with salt", "add water"};
         	createRecipe(r);
         	
-        	r.title = "Second recipe";
+        	r.name = "Second recipe";
         	r.ingredients = new String[] {"water", "noodles"};
         	r.steps = new String[] {"boil water", "add noodles", "eat"};
         	createRecipe(r);
       
-        	r.title = "Third recipe";
+        	r.name = "Third recipe";
         	r.ingredients = new String[] {"two licorice"};
         	r.steps = new String[] {"eat and chew a lot"};
         	createRecipe(r);
         	
-        	r.title = "Fourth recipe";
+        	r.name = "Fourth recipe";
         	r.ingredients = new String[] {"steak"};
         	r.steps = new String[] {"buy steak"};
         	createRecipe(r);
         	
-        	r.title = "Fifth recipe";
+        	r.name = "Fifth recipe";
         	r.ingredients = new String[] {"skittles"};
         	r.steps = new String[] {"taste the rainbow"};
         	createRecipe(r);
@@ -158,14 +168,18 @@ public class RecipeDbAdapter {
      * successfully created return the new rowId for that recipe, otherwise return
      * a -1 to indicate failure.
      * 
-     * @param title the title of the recipe
+     * @param name the title of the recipe
      * @param body the body of the recipe
      * @return rowId or -1 if failed
      */
     public long createRecipe(Recipe recipe) {
         ContentValues recipeValues = new ContentValues();
-        recipeValues.put(KEY_TITLE, recipe.title);
+        recipeValues.put(KEY_NAME, recipe.name);
         recipeValues.put(KEY_FAVORITE, recipe.favorite);
+        recipeValues.put(KEY_COOK_TIME, recipe.cook_time);
+        recipeValues.put(KEY_SERV_SIZE, recipe.serv_size);
+        recipeValues.put(KEY_PHOTO_URLS, recipe.photo_urls);
+        recipeValues.put(KEY_DESC, recipe.desc);
         long recipeId = mDb.insertOrThrow(DATABASE_RECIPE_TABLE, null, recipeValues);
 
     	recipeValues.clear();
@@ -206,7 +220,7 @@ public class RecipeDbAdapter {
      * @return Cursor over all recipes
      */
     public Cursor fetchAllRecipes() {
-        return mDb.query(DATABASE_RECIPE_TABLE, new String[] {KEY_ROWID, KEY_TITLE, KEY_FAVORITE}, null, null, null, null, null);
+        return mDb.query(DATABASE_RECIPE_TABLE, new String[] {KEY_ROWID, KEY_NAME, KEY_FAVORITE}, null, null, null, null, null);
     }
 
     /**
@@ -222,14 +236,18 @@ public class RecipeDbAdapter {
     	// General recipe info
         Cursor mCursor = 
         	mDb.query(true, DATABASE_RECIPE_TABLE, 
-        			  new String[] {KEY_ROWID, KEY_TITLE, KEY_FAVORITE},
+        			  new String[] {KEY_ROWID, KEY_NAME, KEY_FAVORITE, KEY_COOK_TIME, KEY_SERV_SIZE, KEY_PHOTO_URLS, KEY_DESC},
         			  KEY_ROWID + "=" + rowId, null,
                       null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
             recipe.id = mCursor.getLong(mCursor.getColumnIndex(KEY_ROWID));
-            recipe.title = mCursor.getString(mCursor.getColumnIndex(KEY_TITLE));
+            recipe.name = mCursor.getString(mCursor.getColumnIndex(KEY_NAME));
             recipe.favorite = mCursor.getInt(mCursor.getColumnIndex(KEY_FAVORITE)) != 0;
+            recipe.cook_time = mCursor.getString(mCursor.getColumnIndex(KEY_COOK_TIME));
+            recipe.serv_size = mCursor.getString(mCursor.getColumnIndex(KEY_SERV_SIZE));
+            recipe.photo_urls = mCursor.getString(mCursor.getColumnIndex(KEY_PHOTO_URLS));
+            recipe.desc = mCursor.getString(mCursor.getColumnIndex(KEY_DESC));
         }
         mCursor.close();
         
@@ -274,7 +292,7 @@ public class RecipeDbAdapter {
     	// FIXME: Need to query against the ingredients and steps!
     	Cursor mCursor =
             mDb.query(true, DATABASE_RECIPE_TABLE, new String[] {KEY_ROWID,
-                    KEY_TITLE, KEY_FAVORITE}, KEY_TITLE + " LIKE " + '?', 
+                    KEY_NAME, KEY_FAVORITE}, KEY_NAME + " LIKE " + '?', 
                     new String[]{"%" + s + "%"},
                     null, null, null, null);
     	if (mCursor != null) {
@@ -289,14 +307,19 @@ public class RecipeDbAdapter {
      * values passed in
      * 
      * @param rowId id of recipe to update
-     * @param title value to set recipe title to
+     * @param name value to set recipe title to
      * @param body value to set recipe body to
      * @return true if the recipe was successfully updated, false otherwise
      */
     public boolean updaterecipe(Recipe recipe) {
         ContentValues args = new ContentValues();
-        args.put(KEY_TITLE, recipe.title);
+        args.put(KEY_NAME, recipe.name);
         args.put(KEY_FAVORITE, recipe.favorite);
+        args.put(KEY_COOK_TIME, recipe.cook_time);
+        args.put(KEY_SERV_SIZE, recipe.serv_size);
+        args.put(KEY_PHOTO_URLS, recipe.photo_urls);
+        args.put(KEY_DESC, recipe.desc);
+
         boolean result = mDb.update(DATABASE_RECIPE_TABLE, args, KEY_ROWID + "=" + recipe.id, null) > 0;
         
         // FIXME: Need to also update ingredients and steps

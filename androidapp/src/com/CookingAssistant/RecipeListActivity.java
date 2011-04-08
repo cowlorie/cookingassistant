@@ -31,7 +31,7 @@ public class RecipeListActivity extends ListActivity {
         mRecipesCursor = mDbHelper.fetchAllRecipes();
         startManagingCursor(mRecipesCursor);
 
-        String[] from = new String[] { RecipeDbAdapter.KEY_TITLE };
+        String[] from = new String[] { RecipeDbAdapter.KEY_NAME };
         int[] to = new int[] { R.id.text1 };
         
         // Now create an array adapter and set it to display using our row
