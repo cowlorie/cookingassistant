@@ -39,9 +39,9 @@ public class RecipeDbAdapter {
     			+ "_id integer primary key autoincrement, "
     			+ "name text not null, "
     			+ "favorite integer, "
-    			+ "cook_time text, "
+    			+ "cook_time integer, "
     			+ "desc text, "
-    			+ "serve_size text, "
+    			+ "serv_size integer, "
     			+ "photo_urls text); ";
     private static final String DATABASE_CREATE_INGREDIENT_TABLE =
     		"create table ingredient ("
@@ -244,8 +244,8 @@ public class RecipeDbAdapter {
             recipe.id = mCursor.getLong(mCursor.getColumnIndex(KEY_ROWID));
             recipe.name = mCursor.getString(mCursor.getColumnIndex(KEY_NAME));
             recipe.favorite = mCursor.getInt(mCursor.getColumnIndex(KEY_FAVORITE)) != 0;
-            recipe.cook_time = mCursor.getString(mCursor.getColumnIndex(KEY_COOK_TIME));
-            recipe.serv_size = mCursor.getString(mCursor.getColumnIndex(KEY_SERV_SIZE));
+            recipe.cook_time = mCursor.getInt(mCursor.getColumnIndex(KEY_COOK_TIME));
+            recipe.serv_size = mCursor.getInt(mCursor.getColumnIndex(KEY_SERV_SIZE));
             recipe.photo_urls = mCursor.getString(mCursor.getColumnIndex(KEY_PHOTO_URLS));
             recipe.desc = mCursor.getString(mCursor.getColumnIndex(KEY_DESC));
         }
