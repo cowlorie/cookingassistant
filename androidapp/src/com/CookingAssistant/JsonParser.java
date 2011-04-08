@@ -26,8 +26,7 @@ public class JsonParser{
 		    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		    String jString;
 		    int count = 0;
-		    
-		    while ((jString = in.readLine()) != null && count < 100) {
+		    while ((jString = in.readLine()) != null && count < 20) {
 		    	jString = cleanString(jString);
 				Recipe r = getRecipe(jString);
 				mDbHelper.createRecipe(r);

@@ -35,7 +35,7 @@ public class HomeActivity extends Activity {
                 dialog.setCanceledOnTouchOutside(true);
                 TextView text = (TextView) dialog.findViewById(R.id.textView1);
                 text.setText("New Recipes Added");
-                
+              /*  
                 Button button = (Button) dialog.findViewById(R.id.button1);
                 button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,8 +43,8 @@ public class HomeActivity extends Activity {
                         finish();
                     }
                 });
-                
-                dialog.show();
+                */
+                dialog.show(); 
             }
         });
     }
