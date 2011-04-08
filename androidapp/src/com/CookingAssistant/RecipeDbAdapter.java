@@ -62,7 +62,7 @@ public class RecipeDbAdapter {
 	private static final String DATABASE_STEP_TABLE = "step";
 	private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
 
-	private static final int DATABASE_VERSION = 12;
+	private static final int DATABASE_VERSION = 13;
 
 	private final Context mCtx;
 

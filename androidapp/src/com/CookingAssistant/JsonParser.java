@@ -14,10 +14,13 @@ import com.google.gson.GsonBuilder;
 public class JsonParser{
 	private String TAG = "JsonParser";
 	private RecipeDbAdapter mDbHelper;
+	private Gson gson;
 	
 	public JsonParser(RecipeDbAdapter adapter){
 		mDbHelper = adapter;
 		mDbHelper.open();
+		GsonBuilder gsonb = new GsonBuilder();
+		gson = gsonb.create();
 	}
 	
 	public void parse(){
@@ -42,11 +45,7 @@ public class JsonParser{
 	}
 	
 	private Recipe getRecipe(String jsonString) {
-		Recipe r;
-		GsonBuilder gsonb = new GsonBuilder();
-		Gson gson = gsonb.create();
-		r = gson.fromJson(jsonString, Recipe.class);
-		return r;
+		return gson.fromJson(jsonString, Recipe.class);
 	}     
 	
 	private String cleanString(String s){
