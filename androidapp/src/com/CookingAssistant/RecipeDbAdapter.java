@@ -19,9 +19,9 @@ public class RecipeDbAdapter {
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_FAVORITE = "favorite";
     public static final String KEY_INGREDIENT = "ingredient";
-    public static final String KEY_STEP = "instruction";
+    public static final String KEY_STEP = "step";
     public static final String KEY_ROWID = "_id";
-    public static final String KEY_RECIPEID = "recipe";
+    public static final String KEY_RECIPEID = "recipe_id";
 
     private static final String TAG = "RecipeDbAdapter";
     private DatabaseHelper mDbHelper;
@@ -38,16 +38,18 @@ public class RecipeDbAdapter {
     private static final String DATABASE_CREATE_INGREDIENT_TABLE =
     		"create table ingredient ("
     			+ "_id integer primary key autoincrement, "
-    			+ "foreign key (recipe) references recipe(_id), "
-    			+ "ingredient text not null); ";
+    			+ "recipe_id integer not null, "
+    			+ "ingredient text not null,"
+    			+ "foreign key (recipe_id) references recipe(_id)); ";
     private static final String DATABASE_CREATE_STEP_TABLE = 
             "create table step ("
             	+ "_id integer primary key autoincrement, "
-            	+ "foreign key (recipe) references recipe(_id), "
-            	+ "step text not null); ";
+    			+ "recipe_id integer not null, "
+            	+ "step text not null, "
+            	+ "foreign key (recipe_id) references recipe(_id)); ";
 
     private static final String DATABASE_NAME = "data";
-    private static final String DATABASE_RECIPE_TABLE = "recipes";
+    private static final String DATABASE_RECIPE_TABLE = "recipe";
     private static final String DATABASE_INGREDIENT_TABLE = "ingredient";
     private static final String DATABASE_STEP_TABLE = "step";
     
