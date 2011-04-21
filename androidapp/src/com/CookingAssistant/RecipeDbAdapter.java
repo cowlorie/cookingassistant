@@ -239,6 +239,18 @@ public class RecipeDbAdapter {
 		return mDb.query(DATABASE_RECIPE_TABLE, new String[] { KEY_ROWID,
 				KEY_NAME, KEY_FAVORITE }, null, null, null, null, KEY_NAME);
 	}
+	
+	public Cursor fetchAllRecipes(int type) {
+		if(type == RecipeListActivity.SORT_BY_NAME){
+			return mDb.query(DATABASE_RECIPE_TABLE, new String[] { KEY_ROWID,
+					KEY_NAME, KEY_FAVORITE }, null, null, null, null, KEY_NAME);
+		}
+		else {
+			return mDb.query(DATABASE_RECIPE_TABLE, new String[] { KEY_ROWID,
+					KEY_NAME, KEY_FAVORITE }, null, null, null, null, KEY_COOK_TIME);
+		}
+		
+	}
 
 	/**
 	 * Return a Recipe loaded from the given rowId

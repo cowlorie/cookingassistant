@@ -14,6 +14,8 @@ public class RecipeListActivity extends ListActivity {
 	private RecipeDbAdapter mDbHelper;
 	private Cursor mRecipesCursor;
 	private RadioButton nameOpt, timeOpt;
+	public static final int SORT_BY_NAME = 0;
+	public static final int SORT_BY_TIME = 1;
 	public static final int INSERT_ID = Menu.FIRST;
     
     /** Called when the activity is first created. */
@@ -32,20 +34,25 @@ public class RecipeListActivity extends ListActivity {
 
         	
         
-        fillData();
+        fillData(SORT_BY_NAME);
         registerForContextMenu(getListView());
     }
 	
 	RadioButton.OnClickListener myOptionOnClickListener = new RadioButton.OnClickListener() {
 		  @Override
 		  public void onClick(View v) {
-			  
+			  if(nameOpt.isChecked()){
+				  fillData(SORT_BY_NAME);
+			  }
+			  else {
+				  fillData(SORT_BY_TIME);
+			  }
 		 }
 	};
 
-	private void fillData() {
+	private void fillData(int type) {
         // Get all of the Recipe from the database and create the item list
-        mRecipesCursor = mDbHelper.fetchAllRecipes();
+        mRecipesCursor = mDbHelper.fetchAllRecipes(type);
         startManagingCursor(mRecipesCursor);
 
         String[] from = new String[] { RecipeDbAdapter.KEY_NAME };
