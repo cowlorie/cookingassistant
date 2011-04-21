@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.SimpleCursorAdapter;
 
 public class RecipeListActivity extends ListActivity {
 	private RecipeDbAdapter mDbHelper;
 	private Cursor mRecipesCursor;
+	private RadioButton nameOpt, timeOpt;
 	public static final int INSERT_ID = Menu.FIRST;
     
     /** Called when the activity is first created. */
@@ -21,10 +23,25 @@ public class RecipeListActivity extends ListActivity {
         setContentView(R.layout.recipe_list);
         mDbHelper = new RecipeDbAdapter(this);
         mDbHelper.open();
+        
+        nameOpt = (RadioButton)findViewById(R.id.nameBtn);
+        timeOpt = (RadioButton)findViewById(R.id.timeBtn);
+        nameOpt.setOnClickListener(myOptionOnClickListener);
+        timeOpt.setOnClickListener(myOptionOnClickListener);
+        nameOpt.setChecked(true);
 
+        	
+        
         fillData();
         registerForContextMenu(getListView());
     }
+	
+	RadioButton.OnClickListener myOptionOnClickListener = new RadioButton.OnClickListener() {
+		  @Override
+		  public void onClick(View v) {
+			  
+		 }
+	};
 
 	private void fillData() {
         // Get all of the Recipe from the database and create the item list

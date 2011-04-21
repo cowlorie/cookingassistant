@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -27,6 +28,9 @@ public class SearchActivity extends ListActivity {
 
 	public void search(View view) {
 		EditText mEdit = (EditText)findViewById(R.id.searchText);
+		InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
+
         mRecipesCursor = mDbHelper.searchRecipes(mEdit.getText().toString());
         startManagingCursor(mRecipesCursor);
 

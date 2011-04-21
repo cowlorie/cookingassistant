@@ -32,6 +32,7 @@ public class JsonParser{
 		    while ((jString = in.readLine()) != null && count < 30) {
 		    	jString = cleanString(jString);
 				Recipe r = getRecipe(jString);
+				Log.v("parse", "creating recipe");
 				mDbHelper.createRecipe(r);
 				count++;
 		    }

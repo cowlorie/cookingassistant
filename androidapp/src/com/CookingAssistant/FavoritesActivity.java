@@ -19,7 +19,7 @@ public class FavoritesActivity extends ListActivity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.recipe_list);
+        setContentView(R.layout.fav_list);
         
         mDbHelper = new RecipeDbAdapter(this);
         mDbHelper.open();
