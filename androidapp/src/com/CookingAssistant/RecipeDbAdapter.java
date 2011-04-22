@@ -62,7 +62,7 @@ public class RecipeDbAdapter {
 	private static final String DATABASE_STEP_TABLE = "step";
 	private static final String DATABASE_SHOPPING_LIST_TABLE = "shopping_list";
 
-	private static final int DATABASE_VERSION = 19;
+	private static final int DATABASE_VERSION = 21;
 
 	private final Context mCtx;
 
@@ -160,11 +160,17 @@ public class RecipeDbAdapter {
 	
 	
 	public Boolean containsRecipe(String name) {
-	    Cursor mCursor = mDb.query(true, DATABASE_RECIPE_TABLE, new String[] {}, KEY_NAME + "="
-	            + name, null, null, null, null, null);
+		Log.v("createRecipe", "ZZZZ");
+	    Cursor mCursor = mDb.query(true, DATABASE_RECIPE_TABLE, null, KEY_NAME + "="
+	            + "'" + name + "'", null, null, null, null, null);
+	    Log.v("createRecipe", "A");
 	    if (mCursor != null) {
+	    	Log.v("createRecipe", "B");
+	    	mCursor.close();
 	        return true;
 	    }
+	    Log.v("createRecipe", "C");
+	    mCursor.close();
 	    return false;
 	}
 
@@ -181,9 +187,10 @@ public class RecipeDbAdapter {
 	 */
 	public long createRecipe(Recipe recipe) {
 	/*	if(containsRecipe(recipe.name)){
+			Log.v("createRecipe", "contains returned true");
 			return 0;
 		}
-		*/
+	*/	Log.v("createRecipe", "blehblehbelhde");
 		ContentValues recipeValues = new ContentValues();
 		recipeValues.put(KEY_NAME, recipe.name);
 		recipeValues.put(KEY_FAVORITE, recipe.favorite);
