@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -17,9 +18,17 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.home);
+       
         
-        final Button helpButton = (Button) findViewById(R.id.button2);
-        helpButton.setOnClickListener(new View.OnClickListener() {
+        final Button syncButton = (Button) findViewById(R.id.sync_btn);
+        final Button acctButton = (Button) findViewById(R.id.account_btn);
+        final Button settingsButton = (Button) findViewById(R.id.settings_btn);
+        Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams.ttf");
+        syncButton.setTypeface(type);
+        acctButton.setTypeface(type);
+        settingsButton.setTypeface(type);
+        
+        syncButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
             	progDailog = ProgressDialog.show(HomeActivity.this,	"Synchronizing recipes", "Please wait...", true);
             	new Thread() {
