@@ -28,10 +28,10 @@
 						android:layout_height="wrap_content" android:layout_marginBottom="10dip"></TextView>
 				</LinearLayout>
 			</LinearLayout>
-			<TextView android:text="TextView" android:id="@+id/instructionView"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 			<TextView android:layout_width="wrap_content" android:text="TextView"
 				android:id="@+id/ingredientView" android:layout_height="wrap_content"></TextView>
+			<TextView android:text="TextView" android:id="@+id/instructionView"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
 
 		</LinearLayout>
 	</ScrollView>
