@@ -118,39 +118,6 @@ public class RecipeDbAdapter {
 	public RecipeDbAdapter open() throws SQLException {
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
-
-		// Populate DB with temporary test data
-		Cursor cur = fetchAllRecipes();
-		if (cur.getCount() == 0) {
-			Recipe r = new Recipe();
-
-			r.name = "First recipe";
-			r.ingredients = new String[] { "1 sugar", "2 salt", "water" };
-			r.steps = new String[] { "mix sugar with salt", "add water" };
-			createRecipe(r);
-
-			r.name = "Second recipe";
-			r.ingredients = new String[] { "water", "noodles" };
-			r.steps = new String[] { "boil water", "add noodles", "eat" };
-			createRecipe(r);
-
-			r.name = "Third recipe";
-			r.ingredients = new String[] { "two licorice" };
-			r.steps = new String[] { "eat and chew a lot" };
-			createRecipe(r);
-
-			r.name = "Fourth recipe";
-			r.ingredients = new String[] { "steak" };
-			r.steps = new String[] { "buy steak" };
-			createRecipe(r);
-
-			r.name = "Fifth recipe";
-			r.ingredients = new String[] { "skittles" };
-			r.steps = new String[] { "taste the rainbow" };
-			createRecipe(r);
-		}
-		cur.close();
-
 		return this;
 	}
 
@@ -160,18 +127,12 @@ public class RecipeDbAdapter {
 	
 	
 	public Boolean containsRecipe(String name) {
-		Log.v("createRecipe", "ZZZZ");
-	    Cursor mCursor = mDb.query(true, DATABASE_RECIPE_TABLE, null, KEY_NAME + "="
-	            + "'" + name + "'", null, null, null, null, null);
-	    Log.v("createRecipe", "A");
-	    if (mCursor != null) {
-	    	Log.v("createRecipe", "B");
-	    	mCursor.close();
-	        return true;
-	    }
-	    Log.v("createRecipe", "C");
-	    mCursor.close();
-	    return false;
+		Boolean exists = false;
+	    Cursor c = mDb.query(true, DATABASE_RECIPE_TABLE, new String[] {KEY_ROWID},
+	    		KEY_NAME + "=?", new String[] {name}, null, null, null, "1");
+	    exists = c.getCount() > 0;
+	    c.close();
+	    return exists;
 	}
 
 	/**
@@ -186,11 +147,9 @@ public class RecipeDbAdapter {
 	 * @return rowId or -1 if failed
 	 */
 	public long createRecipe(Recipe recipe) {
-	/*	if(containsRecipe(recipe.name)){
-			Log.v("createRecipe", "contains returned true");
-			return 0;
+		if(containsRecipe(recipe.name)){
+			return -1;
 		}
-	*/	Log.v("createRecipe", "blehblehbelhde");
 		ContentValues recipeValues = new ContentValues();
 		recipeValues.put(KEY_NAME, recipe.name);
 		recipeValues.put(KEY_FAVORITE, recipe.favorite);
