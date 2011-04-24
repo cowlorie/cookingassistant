@@ -31,11 +31,15 @@ public class RecipePageActivity extends Activity {
 
 		String title = recipe.name;
 		String ingredients = "";
-		for (String ingredient : recipe.ingredients)
+		for (String ingredient : recipe.ingredients){
 			ingredients += ingredient + "\n";
+		}
 		String instructions = "";
-		for (String step : recipe.steps)
-			instructions += step + "\n";
+		int num = 1;
+		for (String step : recipe.steps){
+			instructions += num + ". " + step + "\n";
+			num++;
+		}
 
 		TextView t = (TextView) findViewById(R.id.titleView);
 		t.setText(title);
