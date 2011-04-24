@@ -25,7 +25,7 @@ public class JsonParser{
 	
 	public void parse(){
 		try {
-		    URL url = new URL("http://174.129.31.68/~cookingassistant/allrecipes.js");	    
+		    URL url = new URL("http://174.129.31.68/~cookingassistant/media/json/allrecipes.js");	    
 		    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		    String jString;
 		    int count = 0;
