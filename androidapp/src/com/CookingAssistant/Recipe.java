@@ -1,6 +1,8 @@
 package com.CookingAssistant;
 
-public class Recipe {
+import java.io.Serializable;
+
+public class Recipe implements Serializable{
 	Long id;
 	String name;
 	boolean favorite;

@@ -1,15 +1,12 @@
 package com.CookingAssistant;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 	
@@ -23,10 +20,12 @@ public class HomeActivity extends Activity {
         final Button syncButton = (Button) findViewById(R.id.sync_btn);
         final Button acctButton = (Button) findViewById(R.id.account_btn);
         final Button settingsButton = (Button) findViewById(R.id.settings_btn);
+        final Button searchButton = (Button) findViewById(R.id.search_btn);
         Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams_Bold.ttf");
         syncButton.setTypeface(type);
         acctButton.setTypeface(type);
         settingsButton.setTypeface(type);
+        searchButton.setTypeface(type);
         
         syncButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -41,6 +40,13 @@ public class HomeActivity extends Activity {
 		           		progDailog.dismiss(); 
             		}
 		        }.start();
+            }
+        });
+        
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Intent myIntent = new Intent().setClass(v.getContext(), OnlineSearchActivity.class);
+                startActivity(myIntent);
             }
         });
     }  

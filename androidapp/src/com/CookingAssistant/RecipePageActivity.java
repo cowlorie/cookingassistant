@@ -21,14 +21,15 @@ public class RecipePageActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.recipe_page);
-
-		Bundle extras = getIntent().getExtras();
-		long recipeId = extras.getLong(RecipeDbAdapter.KEY_ROWID);
-
 		mDbHelper = new RecipeDbAdapter(this);
 		mDbHelper.open();
-		recipe = mDbHelper.fetchRecipe(recipeId);
-
+		
+		Bundle extras = getIntent().getExtras();
+		recipe = (Recipe) extras.getSerializable("recipe");
+		startDisplay();
+	}
+	
+	private void startDisplay(){		
 		String title = recipe.name;
 		String ingredients = "";
 		for (String ingredient : recipe.ingredients){
@@ -40,7 +41,7 @@ public class RecipePageActivity extends Activity {
 			instructions += num + ". " + step + "\n";
 			num++;
 		}
-
+		
 		TextView t = (TextView) findViewById(R.id.titleView);
 		t.setText(title);
 		TextView t1 = (TextView) findViewById(R.id.ingredientView);

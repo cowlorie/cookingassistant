@@ -62,10 +62,9 @@ public class FavoritesActivity extends ListActivity {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
-        Cursor c = mRecipesCursor;
-        c.moveToPosition(position);
-        Intent i = new Intent(this, RecipePageActivity.class);
-        i.putExtra(RecipeDbAdapter.KEY_ROWID, id);
+		Recipe recipe = mDbHelper.fetchRecipe(id);
+		Intent i = new Intent(this, RecipePageActivity.class);
+		i.putExtra("recipe", recipe);
         startActivity(i);
     }
 }
