@@ -21,6 +21,7 @@ public class HomeActivity extends Activity {
         final Button acctButton = (Button) findViewById(R.id.account_btn);
         final Button settingsButton = (Button) findViewById(R.id.settings_btn);
         final Button searchButton = (Button) findViewById(R.id.search_btn);
+        
         Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams_Bold.ttf");
         syncButton.setTypeface(type);
         acctButton.setTypeface(type);

@@ -1,6 +1,7 @@
 package com.CookingAssistant;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class SearchActivity extends ListActivity {
 
 	public void search(View view) {
 		EditText mEdit = (EditText)findViewById(R.id.searchText);
-		InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
 
         mRecipesCursor = mDbHelper.searchRecipes(mEdit.getText().toString());
@@ -46,12 +47,9 @@ public class SearchActivity extends ListActivity {
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
-        Cursor c = mRecipesCursor;
-        c.moveToPosition(position);
-        Intent i = new Intent(this, RecipePageActivity.class);
-        i.putExtra(RecipeDbAdapter.KEY_ROWID, id);
-        i.putExtra(RecipeDbAdapter.KEY_NAME, c.getString(
-                c.getColumnIndexOrThrow(RecipeDbAdapter.KEY_NAME)));
+    	Recipe recipe = mDbHelper.fetchRecipe(id);
+		Intent i = new Intent(this, RecipePageActivity.class);
+		i.putExtra("recipe", recipe);
         startActivity(i);
     }
 

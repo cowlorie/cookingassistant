@@ -7,6 +7,9 @@
 		<activity android:name=".SearchActivity" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 		</activity>
+		<activity android:name=".OnlineSearchActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
 		<activity android:name=".FavoritesActivity" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 		</activity>
@@ -23,8 +26,6 @@
 		<activity android:name=".RecipePageActivity" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 		</activity>
-
-
 		<activity android:name=".Mainpage" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 			<intent-filter>
