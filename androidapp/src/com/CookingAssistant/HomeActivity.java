@@ -23,7 +23,7 @@ public class HomeActivity extends Activity {
         final Button syncButton = (Button) findViewById(R.id.sync_btn);
         final Button acctButton = (Button) findViewById(R.id.account_btn);
         final Button settingsButton = (Button) findViewById(R.id.settings_btn);
-        Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams.ttf");
+        Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams_Bold.ttf");
         syncButton.setTypeface(type);
         acctButton.setTypeface(type);
         settingsButton.setTypeface(type);

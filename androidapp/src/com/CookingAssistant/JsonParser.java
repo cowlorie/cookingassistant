@@ -29,7 +29,7 @@ public class JsonParser{
 		    BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 		    String jString;
 		    int count = 0;
-		    while ((jString = in.readLine()) != null && count < 30) {
+		    while ((jString = in.readLine()) != null && count < 40) {
 		    	jString = cleanString(jString);
 				Recipe r = getRecipe(jString);
 				Log.v("parse", "creating recipe");
