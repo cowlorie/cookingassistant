@@ -35,7 +35,7 @@ public class HomeActivity extends Activity {
             		public void run() {
 		        		try{
 		        			JsonParser jp = new JsonParser(new RecipeDbAdapter(HomeActivity.this));
-		                	jp.parse();
+		                	jp.parseToDatabase(getResources().getText(R.string.allrecipes_url));
 		        		} 
 		        		catch (Exception e) { }
 		           		progDailog.dismiss(); 

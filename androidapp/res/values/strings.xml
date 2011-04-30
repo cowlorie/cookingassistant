@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, CookingAssistant!</string>
     <string name="app_name">Cooking Assistant</string>
     <string name="no_recipes">No Recipes Yet</string>
     <string name="search_label">Search Label</string>
@@ -9,5 +8,8 @@
     <string name="menu_shopping_list_clear">Clear Shopping List</string><string name="no_shopping_list">Nothing To Buy</string>
     <string name="menu_fav_clear">Clear Favorites</string>
     <string name="menu_fav_add">Add To Favorites</string>
+    <string name="allrecipes_url">&quot;http://174.129.31.68/~cookingassistant/media/json/allrecipes.js&quot;</string>
+    <string name="base_search_url">http://174.129.31.68/~cookingassistant/recipes/?page=1</string>
+    <string name="end_search_url">&amp;date_start=2011-01-23&amp;date_end=2011-04-23&amp;order_col=pub_date&amp;order_dir=desc&amp;format=json</string>
     
 </resources>

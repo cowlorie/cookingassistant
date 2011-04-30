@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:orientation="vertical">
+	<TableRow android:layout_height="wrap_content" android:id="@+id/incRow"
+		android:layout_width="300dip">
+		<TextView android:id="@+id/incTextView" android:text="Include:"
+			android:textSize="20dp" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:id="@+id/incText"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:layout_weight="0"></EditText>
+	</TableRow>
+	<TableRow android:layout_height="wrap_content"
+		android:layout_width="300dip" android:id="@+id/excRow">
+		<TextView android:text="Exclude:" android:id="@+id/excTextView"
+			android:textSize="20dp" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:id="@+id/excText"
+			android:layout_height="wrap_content" android:layout_width="fill_parent"
+			android:layout_weight="0"></EditText>
+	</TableRow>
+	<TableRow android:layout_height="wrap_content" android:id="@+id/minTimeRow"
+		android:layout_width="300dip">
+		<TextView android:text="Min Time:" android:id="@+id/minTimeTextView"
+			android:textSize="20dp" android:layout_width="wrap_content"
+			android:layout_height="wrap_content"></TextView>
+		<EditText android:id="@+id/minText" android:layout_height="wrap_content"
+			android:layout_weight="0" android:layout_width="fill_parent"></EditText>
+	</TableRow>
+	<TableRow android:layout_height="wrap_content"
+		android:layout_width="300dip" android:id="@+id/maxTimeRow">
+		<TextView android:id="@+id/maxTimeTextView" android:text="Max Time:"
+			android:textSize="20dp" android:layout_height="wrap_content"
+			android:layout_width="wrap_content"></TextView>
+		<EditText android:layout_height="wrap_content"
+			android:layout_weight="0" android:layout_width="fill_parent"
+			android:id="@+id/maxText"></EditText>
+	</TableRow>
+
+	<Button android:onClick="search" android:layout_width="wrap_content"
+		android:text="Search" android:layout_height="wrap_content" android:id="@+id/searchButton"></Button>
+	<ListView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:id="@android:id/list"></ListView>
+
+</LinearLayout>

@@ -12,4 +12,8 @@ public class Recipe implements Serializable{
 	String[] steps;
 	String photo_urls;
 	String desc;	
+	
+	public String toString() {
+		return name;
+	}
 }

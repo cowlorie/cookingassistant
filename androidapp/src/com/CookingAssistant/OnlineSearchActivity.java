@@ -7,71 +7,92 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class OnlineSearchActivity extends ListActivity {
+	
+	private EditText incEdit;
+	private EditText excEdit;
+	private EditText minEdit;
+	private EditText maxEdit;
     private ArrayList<Recipe> recipeList;
+    private JsonParser jp;
 	
     /** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.online_search);
+        setContentView(R.layout.online_search1);
+        
+        incEdit = (EditText)findViewById(R.id.incText);
+    	excEdit = (EditText)findViewById(R.id.excText);
+    	minEdit = (EditText)findViewById(R.id.minText);
+    	maxEdit = (EditText)findViewById(R.id.maxText);
+    	jp = new JsonParser(new RecipeDbAdapter(OnlineSearchActivity.this));
+    	
         registerForContextMenu(getListView());
     }
 
 	public void search(View view) {
-		EditText incEdit = (EditText)findViewById(R.id.incText);
-		EditText excEdit = (EditText)findViewById(R.id.excText);
-		EditText minEdit = (EditText)findViewById(R.id.minText);
-		EditText maxEdit = (EditText)findViewById(R.id.maxText);
-		
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(incEdit.getWindowToken(), 0);
 		
+		Log.v("searchURL", generateURL());
+		recipeList = jp.parseToArray(generateURL());
+		
+        ArrayAdapter<Recipe> recipes = new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList);
+        setListAdapter(recipes);
+        
+/*        setListAdapter(new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList) {
+        	@Override
+        	public View getView(int position, View convertView, ViewGroup parent) {
+        		TextView label = (TextView)convertView;
+        		   if (convertView == null) {
+        		      convertView = new TextView(OnlineSearchActivity.this);
+        		      label = (TextView)convertView;
+        		   }
+        		   label.setText(recipeList.get(position).name);
+        		   return (convertView);
+        	}
+        });*/
+    }
+	
+	private String generateURL(){
 		String incString = incEdit.getText().toString();
 		String excString = excEdit.getText().toString();
 		String minString = minEdit.getText().toString();
 		String maxString = maxEdit.getText().toString();
-		
-		/*Log.v("OnlineSearchActivity~incString", incString);
-		Log.v("OnlineSearchActivity~excString", excString);
-		Log.v("OnlineSearchActivity~minString", minString);
-		Log.v("OnlineSearchActivity~maxString", maxString);*/
 
-		String url = new String("http://174.129.31.68/~cookingassistant/recipes/?page=1&");
-        //Log.v("OnlineSearchActivity~url", url);
+		String url = (String) getResources().getText(R.string.base_search_url);
+
+		url += "&inc_keys=" + incString;
+		url += "&exc_keys=" + excString;
+		url += "&min_time=" + minString;
+		url += "&max_time=" + maxString;
 		
-		if(!incString.equals("")){
-			
-		}
-		if(!excString.equals("")){
-			
-		}
-		if(!minString.equals("")){
-			
-		}
-		if(!maxString.equals("")){
-			
-		}
-        
-		recipeList = new ArrayList<Recipe>();
+		url += (String) getResources().getText(R.string.end_search_url);
 		
-        ArrayAdapter<Recipe> recipes = new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList);
-        setListAdapter(recipes);
-    }
+		return url;
+	}
 	
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
+    	//get recipe details from server
+    	String url = "http://174.129.31.68/~cookingassistant/recipes/" + 
+    				recipeList.get(position).id + "/?format=json";
+    	Recipe r = jp.parseRecipe(url);
 		Intent i = new Intent(this, RecipePageActivity.class);
-		i.putExtra("recipe", recipeList.get(position));
+		i.putExtra("recipe", r);
         startActivity(i);
     }
+	
+	
 
 }

@@ -32,7 +32,9 @@ public class SearchActivity extends ListActivity {
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(mEdit.getWindowToken(), 0);
 
-        mRecipesCursor = mDbHelper.searchRecipes(mEdit.getText().toString());
+		String search = mEdit.getText().toString();
+		search = search.replace('%', ' ');
+        mRecipesCursor = mDbHelper.searchRecipes(search);
         startManagingCursor(mRecipesCursor);
 
         String[] from = new String[] { RecipeDbAdapter.KEY_NAME };
