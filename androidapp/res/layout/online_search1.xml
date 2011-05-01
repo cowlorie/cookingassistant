@@ -9,18 +9,16 @@
 		<TextView android:id="@+id/incTextView" android:text="Include:"
 			android:textSize="20dp" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
-		<EditText android:id="@+id/incText"
-			android:layout_height="wrap_content" android:layout_width="fill_parent"
-			android:layout_weight="0"></EditText>
+		<EditText android:id="@+id/incText" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:layout_weight="0"></EditText>
 	</TableRow>
 	<TableRow android:layout_height="wrap_content"
 		android:layout_width="300dip" android:id="@+id/excRow">
 		<TextView android:text="Exclude:" android:id="@+id/excTextView"
 			android:textSize="20dp" android:layout_width="wrap_content"
 			android:layout_height="wrap_content"></TextView>
-		<EditText android:id="@+id/excText"
-			android:layout_height="wrap_content" android:layout_width="fill_parent"
-			android:layout_weight="0"></EditText>
+		<EditText android:id="@+id/excText" android:layout_height="wrap_content"
+			android:layout_width="fill_parent" android:layout_weight="0"></EditText>
 	</TableRow>
 	<TableRow android:layout_height="wrap_content" android:id="@+id/minTimeRow"
 		android:layout_width="300dip">
@@ -41,8 +39,13 @@
 	</TableRow>
 
 	<Button android:onClick="search" android:layout_width="wrap_content"
-		android:text="Search" android:layout_height="wrap_content" android:id="@+id/searchButton"></Button>
-	<Button android:onClick="newSearch" android:text="New Search" android:id="@+id/newSearchButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
+		android:background="@drawable/button_selector" android:textColor="#4a62db"
+		android:textSize="20dp" android:text="Search" android:layout_height="wrap_content"
+		android:id="@+id/searchButton"></Button>
+	<Button android:onClick="newSearch" android:background="@drawable/button_selector"
+		android:textColor="#4a62db" android:textSize="20dp" android:text="New Search"
+		android:id="@+id/newSearchButton" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"></Button>
 	<ListView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:id="@android:id/list"></ListView>
 

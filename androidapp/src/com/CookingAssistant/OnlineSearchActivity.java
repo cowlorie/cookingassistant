@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class OnlineSearchActivity extends ListActivity {
 	
@@ -35,6 +35,10 @@ public class OnlineSearchActivity extends ListActivity {
     	minEdit = (EditText)findViewById(R.id.minText);
     	maxEdit = (EditText)findViewById(R.id.maxText);
 		findViewById(R.id.newSearchButton).setVisibility(View.GONE);
+		
+		Typeface type = Typeface.createFromAsset(getAssets(), "CaviarDreams_Bold.ttf");
+		((Button)findViewById(R.id.searchButton)).setTypeface(type);
+		((Button)findViewById(R.id.newSearchButton)).setTypeface(type);
 
     	jp = new JsonParser(new RecipeDbAdapter(OnlineSearchActivity.this));
     	
