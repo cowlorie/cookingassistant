@@ -18,6 +18,7 @@ public class FavoritesActivity extends ListActivity {
 	private Cursor mRecipesCursor;
 
 	public static final int CLEAR_ID = Menu.FIRST;
+	public static final int REMOVE_ID = Menu.FIRST;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,17 @@ public class FavoritesActivity extends ListActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
     	super.onCreateContextMenu(menu, v, menuInfo);
-    	menu.add("Remove Favorite");
+    	menu.add(0, REMOVE_ID, 0, R.string.cmenu_fav_remove);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
     	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
-    	mDbHelper.deleteRecipe(info.id);
-    	fillData();
+    	switch (item.getItemId()) {
+    	case REMOVE_ID:
+    		mDbHelper.deleteRecipe(info.id);
+    		fillData();
+    	}
     	return true;
     }
     
