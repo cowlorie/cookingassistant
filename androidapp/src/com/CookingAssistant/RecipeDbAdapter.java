@@ -357,6 +357,11 @@ public class RecipeDbAdapter {
 	public void clearShoppingList() {
 		mDb.delete(DATABASE_SHOPPING_LIST_TABLE, "1 == 1", null);
 	}
+	
+	/** Remove item from shopping list */
+	public void removeShoppingListItem(long id) {
+		mDb.delete(DATABASE_SHOPPING_LIST_TABLE, KEY_ROWID + "=?", new String[] {String.valueOf(id)});
+	}
 
 	public int addRecipeToFavorites(Recipe recipe) {
 		ContentValues args = new ContentValues();
