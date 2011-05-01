@@ -1,11 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
 
-	<TextView android:id="@+id/text2"
-		android:textSize="12px" android:layout_width="wrap_content"
-		android:layout_alignParentLeft="true"
+	<TextView android:id="@+id/text2" android:textSize="14px"
+		android:layout_width="wrap_content" android:layout_alignParentLeft="true"
 		android:layout_height="fill_parent" />
-	<CheckBox android:layout_width="wrap_content" 
-		android:id="@+id/checkBox1" android:layout_alignParentRight="true"
-		android:layout_height="wrap_content"></CheckBox>
+	<CheckBox android:id="@+id/checkBox1"
+		android:layout_alignParentRight="true" android:background="@drawable/checkbox_background"
+		android:button="@drawable/checkbox" android:layout_width="wrap_content" android:layout_height="23dip"></CheckBox>
 </RelativeLayout>
