@@ -4,9 +4,12 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -21,6 +24,8 @@ public class FavoritesActivity extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fav_list);
         
+        registerForContextMenu(getListView());
+
         mDbHelper = new RecipeDbAdapter(this);
         mDbHelper.open();
 
@@ -43,6 +48,20 @@ public class FavoritesActivity extends ListActivity {
     		return true;
     	}
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+    	super.onCreateContextMenu(menu, v, menuInfo);
+    	menu.add("Remove Favorite");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+    	AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
+    	mDbHelper.deleteRecipe(info.id);
+    	fillData();
+    	return true;
     }
     
     private void fillData() {
