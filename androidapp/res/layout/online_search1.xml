@@ -42,6 +42,7 @@
 
 	<Button android:onClick="search" android:layout_width="wrap_content"
 		android:text="Search" android:layout_height="wrap_content" android:id="@+id/searchButton"></Button>
+	<Button android:onClick="newSearch" android:text="New Search" android:id="@+id/newSearchButton" android:layout_width="wrap_content" android:layout_height="wrap_content"></Button>
 	<ListView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:id="@android:id/list"></ListView>
 

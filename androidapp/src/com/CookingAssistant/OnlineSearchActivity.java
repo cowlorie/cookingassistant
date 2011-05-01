@@ -34,10 +34,27 @@ public class OnlineSearchActivity extends ListActivity {
     	excEdit = (EditText)findViewById(R.id.excText);
     	minEdit = (EditText)findViewById(R.id.minText);
     	maxEdit = (EditText)findViewById(R.id.maxText);
+		findViewById(R.id.newSearchButton).setVisibility(View.GONE);
+
     	jp = new JsonParser(new RecipeDbAdapter(OnlineSearchActivity.this));
     	
         registerForContextMenu(getListView());
     }
+	
+	
+	private void hideViews(){
+		findViewById(R.id.incText).setVisibility(View.GONE);
+		findViewById(R.id.excText).setVisibility(View.GONE);
+		findViewById(R.id.maxText).setVisibility(View.GONE);
+		findViewById(R.id.minText).setVisibility(View.GONE);
+		findViewById(R.id.incTextView).setVisibility(View.GONE);
+		findViewById(R.id.excTextView).setVisibility(View.GONE);
+		findViewById(R.id.maxTimeTextView).setVisibility(View.GONE);
+		findViewById(R.id.minTimeTextView).setVisibility(View.GONE);
+		findViewById(R.id.searchButton).setVisibility(View.GONE);
+		findViewById(R.id.newSearchButton).setVisibility(View.VISIBLE);
+	}
+
 
 	public void search(View view) {
 		InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -45,23 +62,24 @@ public class OnlineSearchActivity extends ListActivity {
 		
 		Log.v("searchURL", generateURL());
 		recipeList = jp.parseToArray(generateURL());
-		
-        ArrayAdapter<Recipe> recipes = new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList);
+			
+        ArrayAdapter<Recipe> recipes = new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList);       
+        hideViews();    
         setListAdapter(recipes);
-        
-/*        setListAdapter(new ArrayAdapter<Recipe>(this, R.layout.recipes_row, recipeList) {
-        	@Override
-        	public View getView(int position, View convertView, ViewGroup parent) {
-        		TextView label = (TextView)convertView;
-        		   if (convertView == null) {
-        		      convertView = new TextView(OnlineSearchActivity.this);
-        		      label = (TextView)convertView;
-        		   }
-        		   label.setText(recipeList.get(position).name);
-        		   return (convertView);
-        	}
-        });*/
     }
+	
+	public void newSearch(View view) {
+		findViewById(R.id.incText).setVisibility(View.VISIBLE);
+		findViewById(R.id.excText).setVisibility(View.VISIBLE);
+		findViewById(R.id.maxText).setVisibility(View.VISIBLE);
+		findViewById(R.id.minText).setVisibility(View.VISIBLE);
+		findViewById(R.id.incTextView).setVisibility(View.VISIBLE);
+		findViewById(R.id.excTextView).setVisibility(View.VISIBLE);
+		findViewById(R.id.maxTimeTextView).setVisibility(View.VISIBLE);
+		findViewById(R.id.minTimeTextView).setVisibility(View.VISIBLE);
+		findViewById(R.id.searchButton).setVisibility(View.VISIBLE);
+		findViewById(R.id.newSearchButton).setVisibility(View.GONE);
+	}
 	
 	private String generateURL(){
 		String incString = incEdit.getText().toString();

@@ -367,7 +367,7 @@ public class RecipeDbAdapter {
 	public Cursor fetchFavs() {
 		Cursor mCursor = mDb.query(true, DATABASE_RECIPE_TABLE, new String[] {
 				KEY_ROWID, KEY_NAME}, KEY_FAVORITE + "=" + "1",
-				null, null, null, null, null);
+				null, null, null, KEY_NAME, null);
 		if (mCursor != null) {
 			mCursor.moveToFirst();
 		}
