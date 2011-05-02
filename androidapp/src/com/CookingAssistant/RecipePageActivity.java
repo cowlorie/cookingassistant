@@ -57,7 +57,10 @@ public class RecipePageActivity extends Activity {
 		t5.setText("Serving Size: " + recipe.serv_size + " People");
 		
 		ImageView imgView =(ImageView)findViewById(R.id.imageView);
+		//String imageUrl = (String) getResources().getText(R.string.base_image_url);
+		//imageUrl += recipe.photo_urls;
 		Drawable drawable = LoadImageFromWebOperations(recipe.photo_urls);
+		Log.v("RecipePage", recipe.photo_urls);
 		imgView.setImageDrawable(drawable);
 	}
 
