@@ -3,7 +3,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical">
+	android:orientation="vertical" android:layout_gravity="center|right">
 	<TableRow android:layout_height="wrap_content" android:id="@+id/incRow"
 		android:layout_width="300dip">
 		<TextView android:id="@+id/incTextView" android:text="Include:"
@@ -38,14 +38,12 @@
 			android:id="@+id/maxText"></EditText>
 	</TableRow>
 
-	<Button android:onClick="search" android:layout_width="wrap_content"
-		android:background="@drawable/button_selector" android:textColor="#4a62db"
+	<Button android:onClick="search" android:background="@drawable/button_selector" android:textColor="#4a62db"
 		android:textSize="20dp" android:text="Search" android:layout_height="wrap_content"
-		android:id="@+id/searchButton"></Button>
+		android:id="@+id/searchButton" android:layout_width="300dip"></Button>
 	<Button android:onClick="newSearch" android:background="@drawable/button_selector"
 		android:textColor="#4a62db" android:textSize="20dp" android:text="New Search"
-		android:id="@+id/newSearchButton" android:layout_width="wrap_content"
-		android:layout_height="wrap_content"></Button>
+		android:id="@+id/newSearchButton" android:layout_height="wrap_content" android:layout_width="300dip"></Button>
 	<ListView android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:id="@android:id/list"></ListView>
 

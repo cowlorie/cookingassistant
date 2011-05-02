@@ -106,11 +106,16 @@ public class OnlineSearchActivity extends ListActivity {
 	@Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
     	super.onListItemClick(l, v, position, id);
+    	
+    	RecipeDbAdapter mDbHelper = new RecipeDbAdapter(OnlineSearchActivity.this);
+    	mDbHelper.open();
     	//get recipe details from server
     	String url = "http://174.129.31.68/~cookingassistant/recipes/" + 
     				recipeList.get(position).id + "/?format=json";
     	Recipe r = jp.parseRecipe(url);
 		Intent i = new Intent(this, RecipePageActivity.class);
+		mDbHelper.createRecipe(r);
+		mDbHelper.close();
 		i.putExtra("recipe", r);
         startActivity(i);
     }

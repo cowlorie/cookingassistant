@@ -1,11 +1,14 @@
 package com.CookingAssistant;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 
 public class HomeActivity extends Activity {
@@ -19,14 +22,15 @@ public class HomeActivity extends Activity {
         
         final Button syncButton = (Button) findViewById(R.id.sync_btn);
         final Button acctButton = (Button) findViewById(R.id.account_btn);
-        final Button settingsButton = (Button) findViewById(R.id.settings_btn);
         final Button searchButton = (Button) findViewById(R.id.search_btn);
+        final Button aboutButton = (Button) findViewById(R.id.about_btn);
         
         Typeface type=Typeface.createFromAsset(getAssets(), "CaviarDreams_Bold.ttf");
+        
         syncButton.setTypeface(type);
         acctButton.setTypeface(type);
-        settingsButton.setTypeface(type);
         searchButton.setTypeface(type);
+        aboutButton.setTypeface(type);
         
         syncButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -48,6 +52,16 @@ public class HomeActivity extends Activity {
             public void onClick(View v) {
             	Intent myIntent = new Intent().setClass(v.getContext(), OnlineSearchActivity.class);
                 startActivity(myIntent);
+            }
+        });
+        
+        aboutButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+            	Dialog dialog = new Dialog(HomeActivity.this);
+            	dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            	dialog.setCanceledOnTouchOutside(true);
+            	dialog.setContentView(R.layout.custom_dialog);
+            	dialog.show();
             }
         });
     }  
