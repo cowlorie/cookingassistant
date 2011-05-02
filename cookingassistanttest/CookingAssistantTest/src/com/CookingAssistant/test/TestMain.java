@@ -2,7 +2,6 @@ package com.CookingAssistant.test;
 
 import junit.framework.Assert;
 import android.test.ActivityInstrumentationTestCase2;
-
 import com.CookingAssistant.Mainpage;
 import com.jayway.android.robotium.solo.Solo;
 
@@ -24,66 +23,58 @@ public class TestMain extends ActivityInstrumentationTestCase2<Mainpage> {
         } catch (Throwable e) {
             e.printStackTrace();
         }
-        
+
         getActivity().finish();
         super.tearDown();
     }
     
-    public void testRecipeIsSentToShoppingList(){
-        solo.clickOnMenuItem("Recipe");
-        solo.clickOnText("Chocolate Wontons");
-        solo.sendKey(Solo.MENU);
-        solo.clickOnButton("Add to Shopping List");
-        solo.sendKey(Solo.CLOSED);
-        solo.sendKey(Solo.CLOSED);
-        solo.clickOnButton("ShoppingList");
-        
+    public void testRecipeSynchronized() {
+        solo.clickOnMenuItem("Synchronize");
+        solo.clickOnMenuItem("Recipes");
         Assert.assertTrue(solo.searchText("wonton"));
-        
-        solo.clickOnText("txt");
-        solo.clearEditText(2);
-        solo.enterText(2, "robotium");
-        solo.clickOnButton("Save");
-        solo.goBack();
-        solo.clickOnText("Edit File Extensions");
-        Assert.assertTrue(solo.searchText("application/robotium"));
     }
     
-    public void testRecipeIsFavorited(){
-        solo.clickOnMenuItem("Recipe");
+    public void testRecipeAccountInfo() {
+        // Since Account info does not do anything at the moment
+        Assert.assertTrue(solo.searchText("Account Info"));
+    }
+    
+    public void testRecipeSettings() {
+        // Since Settings does not do anything at the moment
+        Assert.assertTrue(solo.searchText("Settings"));
+    }
+    
+    public void testRecipeSearchOnline() {
+        
+    }
+
+    public void testRecipeIsSentToShoppingList(){
+        solo.clickOnMenuItem("Recipes");
         solo.clickOnText("Chocolate Wontons");
         solo.sendKey(Solo.MENU);
-        solo.clickOnButton("Add to Favorites");
+        solo.clickOnMenuItem("Add To Shopping List");
         solo.sendKey(Solo.CLOSED);
-        solo.sendKey(Solo.CLOSED);
-        solo.clickOnButton("Favorites");
-        
-        Assert.assertTrue(solo.searchText("Chocolate Wontons"));
-        
-        solo.clickOnText("txt");
-        solo.clearEditText(2);
-        solo.enterText(2, "robotium");
-        solo.clickOnButton("Save");
-        solo.goBack();
-        solo.clickOnText("Edit File Extensions");
-        Assert.assertTrue(solo.searchText("application/robotium"));   
+        solo.clickOnMenuItem("Home");
+        solo.clickOnButton("Shop");
+        Assert.assertTrue(solo.searchText("wonton"));
     }
-    
+
+    public void testRecipeIsFavorited(){
+        solo.clickOnMenuItem("Recipes");
+        solo.clickOnText("Chocolate Wontons");
+        solo.sendKey(Solo.MENU);
+        solo.clickOnButton("Add To Favorites");
+        solo.sendKey(Solo.CLOSED);
+        solo.clickOnMenuItem("Home");
+        solo.clickOnButton("Favorites");
+        Assert.assertTrue(solo.searchText("Chocolate Wontons"));
+    }
+
     public void testRecipeSearched(){
-        solo.clickOnButton("Search");
+        solo.clickOnMenuItem("Search");
         solo.enterText(0, "Chocolate Wontons");
         solo.clickOnButton("Search");
         solo.clickOnText("Chocolate Wontons");
         Assert.assertTrue(solo.searchText("Chocolate Wontons"));
-        
-        solo.clickOnText("txt");
-        solo.clearEditText(2);
-        solo.enterText(2, "robotium");
-        solo.clickOnButton("Save");
-        solo.goBack();
-        solo.clickOnText("Edit File Extensions");
-        Assert.assertTrue(solo.searchText("application/robotium"));   
     }
-
-
 }
